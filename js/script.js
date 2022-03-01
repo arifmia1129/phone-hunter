@@ -1,16 +1,30 @@
+// This container for display result
 const resultContainer = document.getElementById("display-result");
 
+//This container for display error
+const errorContainer = document.getElementById("display-error");
 // This function use for load data from server using api
 const loadPhones = async () => {
     const inputField = document.getElementById("search-input");
     const inputValue = inputField.value.toLowerCase();
-    console.log(inputValue);
+
 
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${inputValue}`);
     const data = await res.json();
-    console.log(data.data);
-    displayPhones(data.data);
-    inputField.value = "";
+
+    // Condition apply for check error found or not
+    if (inputValue === "") {
+        errorContainer.innerText = "Sorry! because input field is empty.";
+        inputField.value = "";
+    }
+    else if (data.data.length === 0) {
+        errorContainer.innerText = "Sorry! No result found.";
+        inputField.value = "";
+    }
+    else {
+        displayPhones(data.data);
+        inputField.value = "";
+    }
 }
 
 
