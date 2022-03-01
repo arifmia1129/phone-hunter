@@ -42,8 +42,9 @@ const loadPhones = async () => {
             displayPhones(data.data);
             spin.style.display = "none";
         }
+
         else {
-            displayPhones(data.data.slice(0, 20));
+            moreDisplayPhones(data.data);
             spin.style.display = "none";
 
         }
@@ -55,7 +56,30 @@ const loadPhones = async () => {
 // This function use for display data in UI that data is loaded from server
 
 const displayPhones = (phones) => {
-    phones?.forEach(phone => {
+    phones.slice(0, 20)?.forEach(phone => {
+        const div = document.createElement("div");
+        div.classList.add("col-md-4");
+        div.classList.add("col-sm-12");
+        div.innerHTML = `
+        <div class="card mb-3 p-3">
+        <img src="${phone.image}" class="card-img-top w-50 mx-auto py-2" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${phone.phone_name}</h5>
+          <p class="card-text">${phone.brand}</p>
+          <button onclick= loadDetails('${phone.slug}') class="btn btn-primary">Info</button>
+        </div>
+      </div>
+        `;
+        resultContainer.appendChild(div);
+
+
+    })
+
+}
+
+// More display 
+const moreDisplayPhones = (phones) => {
+    phones.slice(0, 20)?.forEach(phone => {
         const div = document.createElement("div");
         div.classList.add("col-md-4");
         div.classList.add("col-sm-12");
@@ -71,7 +95,50 @@ const displayPhones = (phones) => {
         `;
         resultContainer.appendChild(div);
     })
+
+    const div = document.createElement("div");
+    div.classList.add("d-flex");
+    div.classList.add("justify-content-center");
+    div.classList.add("align-items-center");
+    div.classList.add("my-3");
+    div.innerHTML = `
+        <button id="more-btn" class = "btn btn-primary text-white fw-bold px-5 py-3 rounded-3 mx-auto">More</button>
+        `;
+    resultContainer.appendChild(div);
+
+    document.getElementById("more-btn").addEventListener("click", function () {
+        morePhones(phones)
+    });
+
 }
+
+// More button function set
+const morePhones = phones => {
+    resultContainer.textContent = "";
+    phones?.forEach(phone => {
+        const div = document.createElement("div");
+        div.classList.add("col-md-4");
+        div.classList.add("col-sm-12");
+        div.innerHTML = `
+        <div class="card mb-3 p-3">
+        <img src="${phone.image}" class="card-img-top w-50 mx-auto py-2" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${phone.phone_name}</h5>
+          <p class="card-text">${phone.brand}</p>
+          <button onclick= loadDetails('${phone.slug}') class="btn btn-primary">Info</button>
+        </div>
+      </div>
+        `;
+        resultContainer.appendChild(div);
+
+
+    })
+
+}
+
+
+
+
 
 const loadDetails = id => {
 
