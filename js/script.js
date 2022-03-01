@@ -7,9 +7,12 @@ const errorContainer = document.getElementById("display-error");
 //This container for display details
 const detailsContainer = document.getElementById("display-details");
 
+//Spinner
+const spin = document.getElementById("spinner");
 
 // This function use for load data from server using api
 const loadPhones = async () => {
+    spin.style.display = "block";
     const inputField = document.getElementById("search-input");
     const inputValue = inputField.value.toLowerCase();
     detailsContainer.textContent = "";
@@ -23,11 +26,13 @@ const loadPhones = async () => {
         resultContainer.textContent = "";
         errorContainer.innerText = "Sorry! because input field is empty.";
         inputField.value = "";
+        spin.style.display = "none";
     }
     else if (data.data.length === 0) {
         resultContainer.textContent = "";
         errorContainer.innerText = "Sorry! No result found.";
         inputField.value = "";
+        spin.style.display = "none";
     }
     else {
         errorContainer.textContent = "";
@@ -35,9 +40,11 @@ const loadPhones = async () => {
         // Condition apply for 20 element display
         if (data.data.length < 20) {
             displayPhones(data.data);
+            spin.style.display = "none";
         }
         else {
-            displayPhones(data.data.slice(0, 200));
+            displayPhones(data.data.slice(0, 20));
+            spin.style.display = "none";
 
         }
         inputField.value = "";
