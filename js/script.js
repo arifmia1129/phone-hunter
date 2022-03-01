@@ -37,7 +37,7 @@ const loadPhones = async () => {
     else {
         errorContainer.textContent = "";
         resultContainer.textContent = "";
-        // Condition apply for 20 element display
+        // Condition apply for 20 element in display
         if (data.data.length < 20) {
             displayPhones(data.data);
             spin.style.display = "none";
@@ -104,7 +104,7 @@ const moreDisplayPhones = (phones) => {
     resultContainer.appendChild(div);
 
     document.getElementById("more-btn").addEventListener("click", function () {
-        morePhones(phones)
+        morePhones(phones);
     });
 
 }
@@ -138,6 +138,7 @@ const loadDetails = id => {
         .then(data => displayDetails(data.data));
 }
 
+//This function use for show details clicked phone
 const displayDetails = phone => {
     resultContainer.textContent = "";
     detailsContainer.textContent = "";
