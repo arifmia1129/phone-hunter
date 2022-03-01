@@ -3,10 +3,16 @@ const resultContainer = document.getElementById("display-result");
 
 //This container for display error
 const errorContainer = document.getElementById("display-error");
+
+//This container for display details
+const detailsContainer = document.getElementById("display-details");
+
+
 // This function use for load data from server using api
 const loadPhones = async () => {
     const inputField = document.getElementById("search-input");
     const inputValue = inputField.value.toLowerCase();
+    detailsContainer.textContent = "";
 
 
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${inputValue}`);
@@ -26,12 +32,13 @@ const loadPhones = async () => {
     else {
         errorContainer.textContent = "";
         resultContainer.textContent = "";
-
+        // Condition apply for 20 element display
         if (data.data.length < 20) {
             displayPhones(data.data);
         }
         else {
-            displayPhones(data.data.slice(0, 20));
+            displayPhones(data.data.slice(0, 200));
+
         }
         inputField.value = "";
     }
@@ -42,7 +49,6 @@ const loadPhones = async () => {
 
 const displayPhones = (phones) => {
     phones?.forEach(phone => {
-        console.log(phone);
         const div = document.createElement("div");
         div.classList.add("col-md-4");
         div.classList.add("col-sm-12");
@@ -61,5 +67,31 @@ const displayPhones = (phones) => {
 }
 
 const loadDetails = id => {
-    console.log(id);
+
+    fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+        .then(res => res.json())
+        .then(data => displayDetails(data.data));
+}
+
+const displayDetails = phone => {
+    resultContainer.textContent = "";
+    detailsContainer.textContent = "";
+
+    console.log(phone);
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+        <div class="card mb-3 p-3 mx-auto">
+        <img src="${phone.image}" class="card-img-top w-25 mx-auto py-2" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><span class="fw-bold">Name :</span> ${phone.name}</h5>
+          <h6 class="card-text"><span class="fw-bold">Brand :</span> ${phone.brand}</h6>
+          <h6 class="card-text"><span class="fw-bold">Release Date :</span> ${phone.releaseDate ? phone.releaseDate : "Release date not avaiable."}</h6>
+          <h6 class="card-text"> <span class="fw-bold">Main features :</span>  | Storage : ${phone.mainFeatures.storage}, Display Size : ${phone.mainFeatures.displaySize}, Chipset : ${phone.mainFeatures.chipSet}, Memory : ${phone.mainFeatures.memory} |</h6>
+          <h6 class="card-text"><span class="fw-bold">Sensors : </span> ${phone.mainFeatures.sensors}.</h6>
+          <h6 class="card-text"><span class="fw-bold">Others info :</span> Bluetooth : ${phone.others.Bluetooth}, GPS : ${phone.others.GPS}, NFC : ${phone.others.NFC}, Radio : ${phone.others.Radio}, USB : ${phone.others.USB}, WLAN : ${phone.others.WLAN}.</h6>
+        </div>
+      </div>
+        `;
+    detailsContainer.appendChild(div);
 }
