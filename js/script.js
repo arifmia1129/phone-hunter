@@ -99,7 +99,7 @@ const moreDisplayPhones = (phones) => {
     div.classList.add("align-items-center");
     div.classList.add("my-3");
     div.innerHTML = `
-        <button id="more-btn" class = "btn btn-primary text-white fw-bold px-5 py-3 rounded-3 mx-auto">More</button>
+        <button id="more-btn" class = "btn btn-success text-white fw-bold px-5 py-3 rounded-3 mx-auto">Show All</button>
         `;
     resultContainer.appendChild(div);
 
@@ -144,12 +144,12 @@ const displayDetails = phone => {
     const div = document.createElement("div");
     div.innerHTML = `
         <div class="card mb-3 p-3 mx-auto">
-        <img src="${phone.image}" class="card-img-top w-25 mx-auto py-2" alt="...">
+        <img src="${phone.image}" class="card-img-top w-50 mx-auto py-2" alt="...">
         <div class="card-body">
           <h5 class="card-title"><span class="fw-bold">Name :</span> ${phone.name}</h5>
           <h6 class="card-text"><span class="fw-bold">Brand :</span> ${phone.brand}</h6>
           <h6 class="card-text"><span class="fw-bold">Release Date :</span> ${phone.releaseDate ? phone.releaseDate : "Release date not avaiable."}</h6>
-          <h6 class="card-text"> <span class="fw-bold">Main features :</span>  | Storage : ${phone.mainFeatures.storage}, Display Size : ${phone.mainFeatures.displaySize}, Chipset : ${phone.mainFeatures.chipSet}, Memory : ${phone.mainFeatures.memory} |</h6>
+          <h6 class="card-text"> <span class="fw-bold">Main features :</span>   Storage : ${phone.mainFeatures.storage}, Display Size : ${phone.mainFeatures.displaySize}, Chipset : ${phone.mainFeatures.chipSet}, Memory : ${phone.mainFeatures.memory}.</h6>
           <h6 class="card-text"><span class="fw-bold">Sensors : </span> ${phone.mainFeatures.sensors}.</h6>
           <h6 class="card-text"><span class="fw-bold">Others info :</span> Bluetooth : ${phone.others ? phone.others.Bluetooth : ""}, GPS : ${phone.others ? phone.others.GPS : ""}, NFC : ${phone.others ? phone.others.NFC : ""}, Radio : ${phone.others ? phone.others.Radio : ""}, USB : ${phone.others ? phone.others.USB : ""}, WLAN : ${phone.others ? phone.others.WLAN : ""}.</h6>
         </div>
