@@ -54,9 +54,9 @@ const loadPhones = async () => {
 
 
 // This function use for display data in UI that data is loaded from server
-
+// This function work when phone quantity less then 20
 const displayPhones = (phones) => {
-    phones.slice(0, 20)?.forEach(phone => {
+    phones?.forEach(phone => {
         const div = document.createElement("div");
         div.classList.add("col-md-4");
         div.classList.add("col-sm-12");
@@ -71,13 +71,10 @@ const displayPhones = (phones) => {
       </div>
         `;
         resultContainer.appendChild(div);
-
-
     })
-
 }
 
-// More display 
+// This function working when phone quantity greater than 20
 const moreDisplayPhones = (phones) => {
     phones.slice(0, 20)?.forEach(phone => {
         const div = document.createElement("div");
@@ -112,7 +109,7 @@ const moreDisplayPhones = (phones) => {
 
 }
 
-// More button function set
+// This function work when clicked more button
 const morePhones = phones => {
     resultContainer.textContent = "";
     phones?.forEach(phone => {
@@ -130,18 +127,12 @@ const morePhones = phones => {
       </div>
         `;
         resultContainer.appendChild(div);
-
-
-    })
-
+    });
 }
 
 
-
-
-
+// This function use for accessing only one phone details
 const loadDetails = id => {
-
     fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
         .then(res => res.json())
         .then(data => displayDetails(data.data));
@@ -150,9 +141,6 @@ const loadDetails = id => {
 const displayDetails = phone => {
     resultContainer.textContent = "";
     detailsContainer.textContent = "";
-
-    console.log(phone);
-
     const div = document.createElement("div");
     div.innerHTML = `
         <div class="card mb-3 p-3 mx-auto">
@@ -163,7 +151,7 @@ const displayDetails = phone => {
           <h6 class="card-text"><span class="fw-bold">Release Date :</span> ${phone.releaseDate ? phone.releaseDate : "Release date not avaiable."}</h6>
           <h6 class="card-text"> <span class="fw-bold">Main features :</span>  | Storage : ${phone.mainFeatures.storage}, Display Size : ${phone.mainFeatures.displaySize}, Chipset : ${phone.mainFeatures.chipSet}, Memory : ${phone.mainFeatures.memory} |</h6>
           <h6 class="card-text"><span class="fw-bold">Sensors : </span> ${phone.mainFeatures.sensors}.</h6>
-          <h6 class="card-text"><span class="fw-bold">Others info :</span> Bluetooth : ${phone.others.Bluetooth}, GPS : ${phone.others.GPS}, NFC : ${phone.others.NFC}, Radio : ${phone.others.Radio}, USB : ${phone.others.USB}, WLAN : ${phone.others.WLAN}.</h6>
+          <h6 class="card-text"><span class="fw-bold">Others info :</span> Bluetooth : ${phone.others ? phone.others.Bluetooth : ""}, GPS : ${phone.others ? phone.others.GPS : ""}, NFC : ${phone.others ? phone.others.NFC : ""}, Radio : ${phone.others ? phone.others.Radio : ""}, USB : ${phone.others ? phone.others.USB : ""}, WLAN : ${phone.others ? phone.others.WLAN : ""}.</h6>
         </div>
       </div>
         `;
