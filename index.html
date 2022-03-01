@@ -17,7 +17,42 @@
 
 <body>
 
+    <!-- Header part -->
+    <header>
+        <div class="container">
+            <h1 class="fw-bold text-center my-5"><span class="text-success">Phone</span> <span
+                    class="text-danger">Info</span>
+                <span class="text-primary">Provider</span>
+            </h1>
+        </div>
+    </header>
 
+    <!-- Main part -->
+    <main>
+        <section class="container">
+
+            <!-- Input field and button part for user input -->
+
+            <div>
+                <div class="mb-3">
+                    <input id="search-input" type="text" class="form-control w-75 mx-auto"
+                        placeholder="Enter phone name that you want to search" aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
+                    <div class="d-flex justify-content-center align-items-center my-2">
+                        <button onclick="loadPhones()" class="btn btn-outline-success" type="button"
+                            id="button-addon2">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Display result when load data -->
+        <section class="container">
+            <div class="row" id="display-result">
+
+            </div>
+        </section>
+    </main>
 
 
     <!-- bootstrap js bundle -->
