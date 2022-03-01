@@ -14,15 +14,25 @@ const loadPhones = async () => {
 
     // Condition apply for check error found or not
     if (inputValue === "") {
+        resultContainer.textContent = "";
         errorContainer.innerText = "Sorry! because input field is empty.";
         inputField.value = "";
     }
     else if (data.data.length === 0) {
+        resultContainer.textContent = "";
         errorContainer.innerText = "Sorry! No result found.";
         inputField.value = "";
     }
     else {
-        displayPhones(data.data);
+        errorContainer.textContent = "";
+        resultContainer.textContent = "";
+
+        if (data.data.length < 20) {
+            displayPhones(data.data);
+        }
+        else {
+            displayPhones(data.data.slice(0, 20));
+        }
         inputField.value = "";
     }
 }
@@ -42,10 +52,14 @@ const displayPhones = (phones) => {
         <div class="card-body">
           <h5 class="card-title">${phone.phone_name}</h5>
           <p class="card-text">${phone.brand}</p>
-          <button class="btn btn-primary">Info</button>
+          <button onclick= loadDetails('${phone.slug}') class="btn btn-primary">Info</button>
         </div>
       </div>
         `;
         resultContainer.appendChild(div);
     })
+}
+
+const loadDetails = id => {
+    console.log(id);
 }
